@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Many-to-Many</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <h4>Many-to-Many</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <h5>Project</h5>
+        <pre>
+    public class Project
+    {
+        public Project()
+        {
+            this.Users = new HashSet<ApplicationUser>();
+        }
+
+        public virtual ICollection<ApplicationUser> Users { get; set; }
+    }
+        </pre>
+      </div>
+      <div class="six columns">
+        <h5>ApplicationUser</h5>
+        <pre>
+    public class ApplicationUser : IdentityUser
+    {
+      public ApplicationUser()
+      {
+          this.Projects = new HashSet<Project>();
+      }
+      
+      public virtual ICollection<Project> Projects { get; set; }    
+    }
+        </pre>
+        <small>Note: This Class is contained within your IdentityModels.</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="twelve columns">
+        <h5>The Database Relationship</h5>
+        <p>
+          Entity Framework will automatically create a <strong>join table</strong> to connect these two tables to each other. The ProjectApplicationUsers table will contain a <strong>foreign key</strong> pointing to the <strong>primary key</strong> of the Projects table and a <strong>foreign key</strong> pointing to the <strong>primary key</strong> of the AspNetUsers table.
+        </p>
+
+        <h5>The Object Relationship</h5>
+        <p>We can call a list of all the users assigned to a specific project:</p>
+        <pre>
+          var project = db.Projects.Find(7);
+          var users = project.Users.ToList();
+        </pre>
+        <p>We can also call a list of all the projects belonging to a specific user:</p>
+        <pre>
+          var user = db.Users.Find(abc4552j34jkfhsk);
+          var projects = user.Projects.ToList();
+        </pre>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</body>
+</html>
