@@ -19,7 +19,8 @@
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/prism.css">
   <link rel="stylesheet" href="css/main.css">
 
   <!-- Favicon
@@ -33,14 +34,16 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="twelve columns">
-        <h4>Many-to-Many</h4>
+      <div class="col-md-12">
+        <h2>Many-to-Many</h2>
       </div>
     </div>
     <div class="row">
-      <div class="six columns">
-        <h5>Project</h5>
+      <div class="col-md-6">
+        <h3>Project</h3>
+        
         <pre>
+        <code class="language-csharp">
     public class Project
     {
         public Project()
@@ -50,11 +53,13 @@
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }
+        </code>
         </pre>
       </div>
-      <div class="six columns">
-        <h5>ApplicationUser</h5>
+      <div class="col-md-6">
+        <h3>ApplicationUser</h3>
         <pre>
+        <code class="language-csharp">
     public class ApplicationUser : IdentityUser
     {
       public ApplicationUser()
@@ -64,29 +69,37 @@
       
       public virtual ICollection<Project> Projects { get; set; }    
     }
+        </code>
         </pre>
         <small>Note: This Class is contained within your IdentityModels.</small>
       </div>
     </div>
     <div class="row">
-      <div class="twelve columns">
-        <h5>The Database Relationship</h5>
+      <div class="col-md-12">
+        <h3>The Database Relationship</h3>
         <p>
           Entity Framework will automatically create a <strong>join table</strong> to connect these two tables to each other. The ProjectApplicationUsers table will contain a <strong>foreign key</strong> pointing to the <strong>primary key</strong> of the Projects table and a <strong>foreign key</strong> pointing to the <strong>primary key</strong> of the AspNetUsers table.
         </p>
 
-        <h5>The Object Relationship</h5>
+        <h3>The Object Relationship</h3>
         <p>We can call a list of all the users assigned to a specific project:</p>
         <pre>
+        <code class="language-csharp">
           var project = db.Projects.Find(7);
           var users = project.Users.ToList();
+        </code>
         </pre>
         <p>We can also call a list of all the projects belonging to a specific user:</p>
         <pre>
+        <code class="language-csharp">
           var user = db.Users.Find(abc4552j34jkfhsk);
           var projects = user.Projects.ToList();
+        </code>
         </pre>
-
+      </div>
+      <div class="col-md-12">
+        <a href="index.html">Back to the fun</a>
+        <br><br>
       </div>
     </div>
   </div>
@@ -94,5 +107,6 @@
   <!-- Javascript
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="javascript/prism.js"></script>
 </body>
 </html>
